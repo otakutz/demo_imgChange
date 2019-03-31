@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			* {
+				margin: 0px;
+				padding: 0px;
+			}
+			a {
+				list-style: none;
+			}
+			.main{
+				width: 80%;
+				margin: 0px auto;
+				min-width: 1060px;
+			}
+			.img4 {
+				margin: 0px auto;
+				margin-top: 100px;
+				display: flex;
+				justify-content: space-around;
+				min-width: 1060px;
+			}
+			.img4 ul li {
+				flex: 1;
+				display: inline-block;
+				transition: all 1s;
+			}
+			.img4 ul img {
+				width: 200px;
+			}
+			.img {
+				width: 600px;
+				margin: 20px auto;
+				position: relative;
+			}
+			.img img {
+				width: 600px;
+			}
+			#imgLeft{
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 50%;
+				height: 100%;
+				cursor: url(images/cursor_left.png), auto;
+			}
+			#imgRight{
+				position: absolute;
+				top: 0;
+				right: 0;
+				width: 50%;
+				height: 100%;
+				cursor: url(images/cursor_right.png), auto;
+			}
+			.img4 ul li:hover {
+				transform: translateY(-10px);
+				box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+			}
+		</style>
+	</head>
+	<body>
+		<div class="main">
+			<div class="img4">
+				<ul>
+					<li><a href="images/img1.jpg"><img src="images/img1.jpg" alt=""></a></li>
+					<li><a href="images/img2.jpg"><img src="images/img2.jpg" alt=""></a></li>
+					<li><a href="images/img3.jpg"><img src="images/img3.jpg" alt=""></a></li>
+					<li><a href="images/img4.jpg"><img src="images/img4.jpg" alt=""></a></li>
+					<li><a href="images/img5.jpg"><img src="images/img5.jpg" alt=""></a></li>
+				</ul>
+			</div>
+			<div class="img">
+				<img id="image" src="images/img1.jpg" alt="">
+				<div id="imgLeft"></div>
+				<div id="imgRight"></div>
+				</div>
+		</div>
+		<script>
+			var img4 = document.getElementsByClassName('img4');
+			var img = document.getElementsByTagName('img');
+			var a = document.getElementsByTagName('a');
+			var imgArr = ['images/img1.jpg',
+			'images/img2.jpg',
+			'images/img3.jpg',
+			'images/img4.jpg',
+			'images/img5.jpg'];
+			var index = 0;
+			var n = 0, i = a.length;
+			var image = document.getElementById('image');
+			for (; n < i; n++) {
+					a[n].onclick = function () {
+						image.src = this.href;
+						var len = 0;
+						var url = this.toString();
+						var arrUrl = url.split("/");
+						var indexSplit = arrUrl.length;
+						var relUrl = arrUrl[indexSplit - 2] + '/' + arrUrl[indexSplit - 1];
+						while (len < a.length) {
+							if (imgArr[len] === relUrl){
+								index = len;
+							};
+							len++;
+						};
+						return false;
+				};
+			};
+			var imgLeft = document.getElementById('imgLeft');
+			var imgRight = document.getElementById('imgRight');
+			imgRight.onclick = function () {
+				image.src = a[++index%a.length].href;
+			};
+			imgLeft.onclick = function () {
+				if (index === 0) {
+					index = a.length;
+				};
+				image.src = a[--index%a.length].href;
+			};
+		</script>
+	</body>
+</html>
